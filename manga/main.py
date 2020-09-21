@@ -3,23 +3,56 @@ import datetime
 import os
 import sys
 
-def start_crawling_job(crawler_name, instance_prefix):
+from manga.settings import *
+    
+def start_crawling_job(crawler_name, instance_prefix, sitename):
     timestamp = datetime.datetime.utcnow().timestamp()
     spider_instance_name = instance_prefix + str(timestamp)
 
-    spiders_path = os.path.realpath(os.path.join(__file__, '../'))
+    export_dir = os.path.join(
+        MANGA_DOWNLOAD_ROOT,
+        sitename
+    )
 
-    os.chdir(spiders_path)
-    start_spider_command = "scrapy crawl " + crawler_name + " -s JOBDIR=data/crawls/" + spider_instance_name + ' -a spider_instance=' + spider_instance_name
+    log_dir = os.path.join(
+        LOG_ROOT,
+        sitename
+    )
 
-    cmdline.execute(start_spider_command.split())
+    log_dir = os.path.join(
+        log_dir,
+        spider_instance_name
+    )
 
-    water = ''
+    output_file = os.path.join(
+        export_dir,
+        '{}.json'.format(
+            spider_instance_name
+        )
+    )
 
-#start_crawling_job('MangakakalotSitemap', 'mangakakalot_sitemap_spiders')
-start_crawling_job('MangakakalotMangaList', 'mangakakalot_mangalist_spiders')
+    os.chdir(APPLICATION_ROOT)
 
-#spiders_path = os.path.realpath(os.path.join(__file__, '../'))
-#os.chdir(spiders_path)
-#start_spider_command = "scrapy crawl MangakakalotMangaList -s JOBDIR=data/crawls/mangakakalot_mangalist_spiders1564652942.867156 -a spider_instance=mangakakalot_mangalist_spiders1564652942.867156"
-#cmdline.execute(start_spider_command.split())
+    command_template = "scrapy\tcrawl\t" + \
+        crawler_name + \
+            '\t-s\tJOBDIR=data/crawls/{spider_instance_name}' + \
+            '\t-a\tspider_instance={spider_instance_name}' + \
+            '\t-a\tsitename={sitename}' + \
+            "\t-a\tlog_dir={log_dir}" + \
+            "\t-a\texport_dir={export_dir}" + \
+            "\t-o\toutput_file={output_file}:json"
+
+    start_spider_command = command_template.format(
+        spider_instance_name=spider_instance_name,
+        sitename=sitename,
+        log_dir=log_dir,
+        export_dir=export_dir,
+        output_file=output_file
+    )
+
+    print(start_spider_command)
+
+    cmdline.execute(start_spider_command.split('\t'))
+
+if __name__ == '__main__':
+    start_crawling_job('MangakakalotMangaList', 'mangakakalot_spider_run', 'mangakakalot.com')

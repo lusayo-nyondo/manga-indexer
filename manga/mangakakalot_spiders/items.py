@@ -110,7 +110,6 @@ class ChapterItem(scrapy.Item):
     views = scrapy.Field()
     updated_on = scrapy.Field()
     url = scrapy.Field()
-    external_sources = scrapy.Field()
     pages = scrapy.Field()    
 
     def __str__(self):

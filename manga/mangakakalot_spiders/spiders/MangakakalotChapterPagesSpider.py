@@ -20,12 +20,9 @@ PROJECT_ROOT = os.path.join(
 )
 
 sys.path.append(PROJECT_ROOT)
-
 print(sys.path)
 
-from spiders.manga.mangakakalot_spiders.items import *
-from manga.models import Chapter, Page, ExternalResource
-
+from mangakakalot_spiders.items import *
 
 class MangakakalotChapterPagesSpider(scrapy.Spider):
     name = 'MangakakalotChapterPagesSpider'
