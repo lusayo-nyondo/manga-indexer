@@ -7,3 +7,7 @@ The point of the indexer is to arrive at a single json file, per manga, per site
 It is designed to detect new manga and new chapters efficiently.
 
 Fetching the actual chapter is actually done through another package https://github.com/neet-lord/manga-py.git
+
+.. code:: bash
+
+asdfasdf
