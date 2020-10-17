@@ -27,7 +27,7 @@ class BaseMangaParser:
         return ''
 
     def _get_url(self) -> str:
-        return ''
+        return self._document.request.url
 
 class BaseMangaPageParser:
     def __init__(self, response):
@@ -58,11 +58,8 @@ class BaseMangaPager:
         self.manga_parser = manga_parser
         self.manga_page_parser = manga_page_parser
 
-    def __iter__(self) -> list:
-        return self._get_page_list()
-
     def _get_page_count(self) -> int:
-        return len(self.__iter__())
+        return len(self._get_page_list())
 
     def _get_page_list(self) -> list:
         return list()
