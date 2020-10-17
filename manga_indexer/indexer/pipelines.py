@@ -3,8 +3,9 @@ import os
 from scrapy.exporters import XmlItemExporter
 
 
-class MangakakalotSpidersPipeline(object):
+class MangaIndexerPipeline(object):
     def process_item(self, item, spider):
+        print('%s what we are now processings \n\n\n\n\n\n\n\n\nafasdfasdfasdfsadsfdf', item)
         return item
 
 class PerMangaNameXmlExportPipeline(object):

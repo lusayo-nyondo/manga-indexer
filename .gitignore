@@ -1,5 +1,5 @@
 *__pycache__*
-*data*
-*logs*
-.venv
+data
+logs
+venv
 .vscode

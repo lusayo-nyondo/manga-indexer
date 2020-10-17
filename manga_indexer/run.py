@@ -1,11 +1,16 @@
 from scrapy import cmdline
+
 import datetime
 import os
 import sys
 
-from manga.settings import *
-    
-def start_crawling_job(crawler_name, instance_prefix, sitename):
+from manga_indexer.settings import *
+
+def start_crawling_job(
+    crawler_name,
+    instance_prefix,
+    sitename
+):
     timestamp = datetime.datetime.utcnow().timestamp()
     spider_instance_name = instance_prefix + str(timestamp)
 
@@ -40,7 +45,7 @@ def start_crawling_job(crawler_name, instance_prefix, sitename):
             '\t-a\tsitename={sitename}' + \
             "\t-a\tlog_dir={log_dir}" + \
             "\t-a\texport_dir={export_dir}" + \
-            "\t-o\toutput_file={output_file}:json"
+            "\t-o\t{output_file}:json"
 
     start_spider_command = command_template.format(
         spider_instance_name=spider_instance_name,
@@ -50,9 +55,4 @@ def start_crawling_job(crawler_name, instance_prefix, sitename):
         output_file=output_file
     )
 
-    print(start_spider_command)
-
     cmdline.execute(start_spider_command.split('\t'))
-
-if __name__ == '__main__':
-    start_crawling_job('MangakakalotMangaList', 'mangakakalot_spider_run', 'mangakakalot.com')

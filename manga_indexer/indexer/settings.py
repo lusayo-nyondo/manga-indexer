@@ -1,9 +1,8 @@
 import sys
 import os
-import django
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for mangakakalot_spiders project
+# Scrapy settings for manga_indexer project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -12,20 +11,10 @@ import django
 #     https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
-'''
-DJANGO_APP = os.path.dirname(os.path.realpath('.')) + '/djangoapp'
-sys.path.append(DJANGO_APP)
+BOT_NAME = 'manga_indexer'
 
-print('DJANGO PATH: ' + DJANGO_APP)
-
-os.environ['DJANGO_SETTINGS_MODULE'] = 'config.settings'
-django.setup()
-'''
-
-BOT_NAME = 'mangakakalot_spiders'
-
-SPIDER_MODULES = ['mangakakalot_spiders.spiders']
-NEWSPIDER_MODULE = 'mangakakalot_spiders.spiders'
+SPIDER_MODULES = ['indexer.spiders']
+NEWSPIDER_MODULE = 'indexer.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -60,13 +49,13 @@ ROBOTSTXT_OBEY = True
 # Enable or disable spider middlewares
 # See https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'mangakakalot_spiders.middlewares.MangakakalotSpidersSpiderMiddleware': 543,
+#    'manga_indexer.middlewares.MangaIndexerSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'mangakakalot_spiders.middlewares.MangakakalotSpidersDownloaderMiddleware': 543,
+#    'manga_indexer.middlewares.MangaIndexerDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -78,8 +67,8 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'mangakakalot_spiders.pipelines.MangakakalotSpidersPipeline': 300,
-#    'mangakakalot_spiders.pipelines.PerMangaNameXmlExportPipeline': 300,
+    'indexer.pipelines.MangaIndexerPipeline': 300,
+#    'manga_indexer.pipelines.PerMangaNameXmlExportPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

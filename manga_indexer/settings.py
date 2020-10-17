@@ -11,4 +11,3 @@ if not os.path.exists(MANGA_DOWNLOAD_ROOT):
 
 if not os.path.exists(LOG_ROOT):
     os.makedirs(LOG_ROOT)
-
