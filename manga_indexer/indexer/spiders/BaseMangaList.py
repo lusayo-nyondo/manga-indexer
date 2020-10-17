@@ -131,9 +131,3 @@ class BaseMangaListSpider(Spider):
             log = open(self.__fatal_error_log, "a+")
             log.write(log_details)
             log.close()
-
-    def json_encode_manga_item(self, manga_details):
-        _encoder = ScrapyJSONEncoder()
-        json_encoded = _encoder.encode(manga_details)
-        return json_encoded
-
