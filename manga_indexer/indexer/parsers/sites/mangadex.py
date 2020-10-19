@@ -13,7 +13,7 @@ class MangadexMangaPageParser(BaseMangaPageParser):
         
         for manga in mangas:
             formatted_urls.append(
-                'https://mangadex.org/{manga}'.format(
+                'https://mangadex.org{manga}'.format(
                     manga=manga
                 )
             )
@@ -25,25 +25,13 @@ class MangadexMangaPageParser(BaseMangaPageParser):
 
 class MangadexMangaParser(BaseMangaParser):
     def _get_title(self) -> str:
-        title = self._document.css('#content.container div.card.mb-3 h6.card-header.d-flex.align-items-center.py-2 span.mx-1::text()').get()
+        title = self._document.css('#content.container div.card.mb-3 h6.card-header.d-flex.align-items-center.py-2 span.mx-1::text').get()
         return title
     
     def _get_url(self) -> str:
         return self._document.request.url
 
 class MangadexMangaPager(BaseMangaPager):
-    def __init__(
-        self,
-        response,
-        manga_page_parser=MangadexMangaPageParser,
-        manga_parser=MangadexMangaParser
-    ):
-        super().__init__(
-            response,
-            manga_page_parser,
-            manga_parser
-        )
-
     def _get_page_list(self):
         if self._page_list is None:
 

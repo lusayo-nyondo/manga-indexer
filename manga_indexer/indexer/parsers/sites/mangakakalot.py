@@ -21,18 +21,6 @@ class MangakakalotMangaParser(BaseMangaParser):
         return self._document.request.url
 
 class MangakakalotMangaPager(BaseMangaPager):
-    def __init__(
-        self,
-        response,
-        manga_page_parser=MangakakalotMangaPageParser,
-        manga_parser=MangakakalotMangaParser
-    ):
-        super().__init__(
-            response,
-            manga_page_parser,
-            manga_parser
-        )
-
     def _get_page_list(self):
         if self._page_list is None:
 

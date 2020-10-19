@@ -11,7 +11,7 @@ def _args_general(parser):
         help=(
             'Specify a website that you want to index.\r\n'
             'The default is https://mangakakalot.com\r\n'
-            'A complete list of sites can be found at: https://github.com/neet-lord/manga-indexer/docs/supported_sites.lst'
+            'A complete list of sites can be found at: https://github.com/neet-lord/manga-indexer/blob/master/docs/supported_sites.md'
         )
     )
 
@@ -31,5 +31,20 @@ def _args_general(parser):
         dest='log_file',
         help=(
             'Set an event log for the indexer.'
+        )
+    )
+
+    args.add_argument(
+        '-L',
+        '--log-level',
+        dest='log_level',
+        choices=[
+            'DEBUG',
+            'INFO',
+            'ERROR'
+        ],
+        help=(
+            'Set a logging level for the scrapy spider.'
+            'Note, this log is different from the general event log.'
         )
     )

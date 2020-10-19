@@ -25,3 +25,13 @@ def _args_downloading(parser):
             'Specify an output file.'
         )
     )
+
+    args.add_argument(
+        '-p',
+        '--proxy-list',
+        dest='proxy_list',
+        type=str,
+        help=(
+            'Specify a file from which to read a set of rotating proxies.'
+        )
+    )

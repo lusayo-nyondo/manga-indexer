@@ -1,4 +1,5 @@
 import os, datetime
+from pathlib import Path
 
 from manga_indexer.settings import DATA_ROOT
 
@@ -19,11 +20,13 @@ def prep_filesystem(args, site):
     )
 
     job_dir = __get_job_dir(data_dir, args)
+    scrapy_log = __get_scrapy_log(job_dir)
+
     event_log = __get_event_log(data_dir, args)
     process_log = __get_process_log(data_dir, args)
     output_file = __get_output_file(data_dir, args)
 
-    for file in ( job_dir, event_log, process_log, output_file ):
+    for file in ( scrapy_log, event_log, process_log, output_file ):
         if not os.path.exists(
             os.path.abspath(
                 os.path.dirname(file)
@@ -33,7 +36,9 @@ def prep_filesystem(args, site):
                 os.path.dirname(file)
             )
     
-    return process_log, event_log, output_file, job_dir
+    Path(scrapy_log).touch()
+
+    return process_log, event_log, output_file, job_dir, scrapy_log
 
 def __get_job_dir(data_dir, args):
     if args.crawl_dir:
@@ -51,6 +56,12 @@ def __get_event_log(data_dir, args):
             data_dir,
             'events.log'
         )
+
+def __get_scrapy_log(job_dir):
+    return os.path.join(
+        job_dir,
+        'scrapy_proc.log'
+    )
 
 def __get_output_file(data_dir, args):
     rawpath = None

@@ -1,6 +1,7 @@
-from scrapy import cmdline
+import datetime, os, sys, logging
 
-import datetime, os, sys
+from scrapy import cmdline
+from scrapy.utils.log import configure_logging
 
 from manga_indexer.settings import (
     DATA_ROOT,
@@ -12,12 +13,13 @@ from .__site_args import sites
 
 def start_indexer(args):
     site = sites[args.site]
-    process_log, event_log, output_file, job_dir = prep_filesystem(args, site)
+    process_log, event_log, output_file, job_dir, scrapy_log = prep_filesystem(args, site)
 
     output_format = args.format
 
     start_crawling_job(
         job_dir=job_dir,
+        scrapy_log=scrapy_log,
         spider=site['spider_name'],
         sitename=site['sitename'],
         event_log=event_log,
@@ -29,6 +31,7 @@ def start_indexer(args):
 
 def start_crawling_job(
     job_dir,
+    scrapy_log,
     spider,
     sitename,
     event_log,
@@ -38,6 +41,14 @@ def start_crawling_job(
     process_dir
 ):
     os.chdir(process_dir)
+
+    configure_logging(install_root_handler=False)
+    logging.basicConfig(
+        filename=scrapy_log,
+        filemode = 'a',
+        format='%(levelname)s: %(message)s',
+        level=logging.DEBUG
+    )
 
     command_template = (
             'scrapy\tcrawl\t{spider}'
@@ -50,6 +61,7 @@ def start_crawling_job(
 
     start_spider_command = command_template.format(
         spider=spider,
+        scrapy_log=scrapy_log,
         sitename=sitename,
         event_log=event_log,
         process_log=process_log,
