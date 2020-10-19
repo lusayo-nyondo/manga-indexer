@@ -33,7 +33,7 @@ ROTATING_PROXY_LIST_PATH = None
 if args.proxy_list_path:
     ROTATING_PROXY_LIST_PATH = args.proxy_list_path
 else:
-    ROTATIING_PROXY_LIST_PATH = os.path.join(
+    ROTATING_PROXY_LIST_PATH = os.path.join(
         SUPPORT_ROOT,
         'proxies.txt'
     )
