@@ -16,13 +16,20 @@ def _args_general(parser):
     )
 
     args.add_argument(
-        '-e',
-        '--use-estate',
-        dest='use_estate',
-        action='store_true',
+        '-j',
+        '--job-dir',
+        dest='crawl_dir',
         help=(
-            'Create or use a tracked indexing project.\r\n'
-            'This is useful if, for example, you only want you update your already existing index records\r\n'
-            'to fetch new manga rather than index the entire site.'
+            'Set a job dir for the scrapy job.\r\n'
+            'This is useful if you want to resume the indexing at a later time.\r\n'
+        )
+    )
+
+    args.add_argument(
+        '-l',
+        '--log-file',
+        dest='log_file',
+        help=(
+            'Set an event log for the indexer.'
         )
     )

@@ -11,29 +11,10 @@ from manga_indexer.indexer.parsers.sites import (
 class MangakakalotSpider(BaseMangaListSpider):
     name = 'MangakakalotMangaList'
 
-    def __init__(self,
-        sitename,
-        spider_instance=None,
-        export_dir='./data',
-        log_dir='./logs',
-        **kwargs
-    ):
-        BaseMangaListSpider.__init__(
-            self,
-            sitename,
-            spider_instance=None,
-            export_dir='./data',
-            log_dir='./logs',
-            **kwargs
-        )
-
-        self._start_url = self.__set_start_url()
-        self.__set_parsers()
-
-    def __set_start_url(self):
+    def _set_start_url(self):
         return 'https://mangakakalot.com/manga_list'
     
-    def __set_parsers(self):
+    def _set_parsers(self):
         self.Pager = MangakakalotMangaPager
         self.MangaPageParser = MangakakalotMangaPageParser
         self.MangaParser = MangakakalotMangaParser

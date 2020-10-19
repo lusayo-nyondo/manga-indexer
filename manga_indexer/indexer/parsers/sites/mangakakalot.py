@@ -5,7 +5,6 @@ from manga_indexer.indexer.parsers import (
     BaseMangaPageParser,
     BaseMangaPager
 )
-
 class MangakakalotMangaPageParser(BaseMangaPageParser):
     def _get_manga_on_page(self) -> list:
         return self._document.css(".list-truyen-item-wrap > a:first-of-type::attr('href')").getall()
@@ -15,7 +14,7 @@ class MangakakalotMangaPageParser(BaseMangaPageParser):
 
 class MangakakalotMangaParser(BaseMangaParser):
     def _get_title(self) -> str:
-        title = self._document('.manga-info-text li h1::text').get()
+        title = self._document.css('.manga-info-text li h1::text').get()
         return title
     
     def _get_url(self) -> str:

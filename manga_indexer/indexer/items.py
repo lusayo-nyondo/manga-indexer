@@ -8,14 +8,9 @@
 import scrapy
 
 class MangaItem(scrapy.Item):
-    STATUSES = [
-        ('Ongoing', 'Ongoing'),
-        ('Completed', 'Completed')
-    ]
-
-    manga_name = scrapy.Field()
+    title = scrapy.Field()
     url = scrapy.Field()
 
     def __str__(self):
-        return self['manga_name']
+        return self['title']
 

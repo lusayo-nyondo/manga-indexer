@@ -8,10 +8,12 @@ def _args_downloading(parser):
         type=str,
         dest='format',
         default='json',
-        help=(
-            'Specify an output format. Supported formats are:\r\n'
-            'json, xml, yaml'
-        )
+        choices=[
+            'json',
+            'xml',
+            'csv'
+        ],
+        help='Specify an output format.'
     )
 
     args.add_argument(

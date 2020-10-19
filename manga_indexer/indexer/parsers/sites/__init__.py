@@ -3,3 +3,9 @@ from .mangakakalot import (
     MangakakalotMangaParser,
     MangakakalotMangaPageParser
 )
+
+from .mangadex import (
+    MangadexMangaPager,
+    MangadexMangaParser,
+    MangadexMangaPageParser
+)

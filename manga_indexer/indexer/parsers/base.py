@@ -20,7 +20,7 @@ class BaseMangaParser:
 
         manga_item['title'] = title
         manga_item['url'] = url
-
+        
         return manga_item
 
     def _get_title(self) -> str:
@@ -38,6 +38,7 @@ class BaseMangaPageParser:
         """
         Fetch all of the urls for manga that are on this page.
         """
+        
     def _get_page_url(self, page_number) -> str:
         return self._document.request.url
     
