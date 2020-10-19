@@ -38,10 +38,12 @@ def _args_general(parser):
         '-L',
         '--log-level',
         dest='log_level',
+        default='DEBUG',
         choices=[
             'DEBUG',
             'INFO',
-            'ERROR'
+            'ERROR',
+            'CRITICAL'
         ],
         help=(
             'Set a logging level for the scrapy spider.'

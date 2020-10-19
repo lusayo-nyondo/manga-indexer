@@ -16,10 +16,12 @@ def start_indexer(args):
     process_log, event_log, output_file, job_dir, scrapy_log = prep_filesystem(args, site)
 
     output_format = args.format
+    scrapy_log_level = get_log_level_enum(args.log_level)
 
     start_crawling_job(
         job_dir=job_dir,
         scrapy_log=scrapy_log,
+        scrapy_log_level=scrapy_log_level,
         spider=site['spider_name'],
         sitename=site['sitename'],
         event_log=event_log,
@@ -29,9 +31,20 @@ def start_indexer(args):
         process_dir=APPLICATION_ROOT
     )
 
+def get_log_level_enum(log_level_str):
+    if log_level_str == 'DEBUG':
+        return logging.DEBUG
+    elif log_level_str == 'ERROR':
+        return logging.ERROR
+    elif log_level_str == 'INFO':
+        return logging.INFO
+    elif log_level_str == 'CRITICAL':
+        return logging.CRITICAL
+
 def start_crawling_job(
     job_dir,
     scrapy_log,
+    scrapy_log_level,
     spider,
     sitename,
     event_log,
@@ -41,13 +54,13 @@ def start_crawling_job(
     process_dir
 ):
     os.chdir(process_dir)
-
     configure_logging(install_root_handler=False)
+
     logging.basicConfig(
         filename=scrapy_log,
         filemode = 'a',
         format='%(levelname)s: %(message)s',
-        level=logging.DEBUG
+        level=scrapy_log_level,
     )
 
     command_template = (

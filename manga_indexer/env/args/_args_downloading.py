@@ -28,8 +28,8 @@ def _args_downloading(parser):
 
     args.add_argument(
         '-p',
-        '--proxy-list',
-        dest='proxy_list',
+        '--proxy-list-path',
+        dest='proxy_list_path',
         type=str,
         help=(
             'Specify a file from which to read a set of rotating proxies.'
