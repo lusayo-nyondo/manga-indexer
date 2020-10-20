@@ -8,7 +8,7 @@ from manga_indexer.indexer.parsers.sites import (
     ManganeloMangaPager
 )
 
-class MangakakalotSpider(BaseMangaListSpider):
+class ManganeloSpider(BaseMangaListSpider):
     name = 'ManganeloMangaList'
 
     def _set_start_url(self):
