@@ -1,5 +1,5 @@
 # SUPPORTED WEBSITES
 
-    + https://mangakakalot.com
-    + https://mangadex.org
-    + https://manganelo.com
+- [x] https://mangadex.org
+- [x] https://manganelo.com
+- [x] https://mangakakalot.com

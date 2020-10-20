@@ -31,13 +31,12 @@ class ManganeloMangaParser(BaseMangaParser):
         return title
     
     def _get_tags(self) -> str:
-        tags = self._document.css(
-            'html body div.body-site '
-            'div.container.container-main '
-            'div.container-main-left '
-            'div.panel-story-info div.story-info-right '
-            'table.variations-tableInfo tbody '
-            'tr:nth-child(4) td.table-value a.a-h::text'
+        tags = self._document.xpath(
+            '/html/body/div[1]/div[3]'
+            '/div[1]/div[3]/div[2]'
+            '/table/tbody/tr/'
+            'td[contains(text(),\'Genres\')]'
+            '/../td[2]/a/text()'
         ).get()
 
         return tags
@@ -68,23 +67,22 @@ class ManganeloMangaParser(BaseMangaParser):
             return list()
         
     def _get_authors(self) -> str:
-        authors = self._document.css(
-            'html body div.body-site '
-            'div.container.container-main '
-            'div.container-main-left '
-            'div.panel-story-info '
-            'div.story-info-right '
-            'table.variations-tableInfo '
-            'tbody tr:nth-child(2) td.table-value a.a-h::text'
+        authors = self._document.xpath(
+            '/html/body/div[1]/div[3]'
+            '/div[1]/div[3]/div[2]'
+            '/table/tbody/tr/'
+            'td[contains(text(),\'Author\')]'
+            '/../td[2]/a/text()'
         ).getall()
 
         return authors
-
     def _get_status(self) -> str:
         status = self._document.xpath(
-            '/html/body/div[1]/'
-            'div[3]/div[1]/div[3]'
-            '/div[2]/table/tbody/tr[3]/td[2]/text()'
+            '/html/body/div[1]/div[3]'
+            '/div[1]/div[3]/div[2]'
+            '/table/tbody/tr/'
+            'td[contains(text(),\'Status\')]'
+            '/../td[2]/text()'
         ).get()
 
         return status

@@ -7,7 +7,7 @@ def _args_general(parser):
         '--site',
         type=str,
         dest='site',
-        default='https://mangakakalot.com',
+        default='mangakakalot.com',
         help=(
             'Specify a website that you want to index.\r\n'
             'The default is https://mangakakalot.com\r\n'
