@@ -35,3 +35,13 @@ def _args_downloading(parser):
             'Specify a file from which to read a set of rotating proxies.'
         )
     )
+
+    args.add_argument(
+        '-np',
+        '--no-proxy',
+        action='store_true',
+        dest='no_proxy',
+        help=(
+            'Use this flag to disable proxies.'
+        )
+    )

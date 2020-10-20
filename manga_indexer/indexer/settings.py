@@ -28,14 +28,14 @@ ITEM_PIPELINES = {
 }
 
 
-ROTATING_PROXY_LIST_PATH = None
-
-if args.proxy_list_path:
-    ROTATING_PROXY_LIST_PATH = args.proxy_list_path
-else:
-    ROTATING_PROXY_LIST_PATH = os.path.join(
-        SUPPORT_ROOT,
-        'proxies.txt'
-    )
-
-ROTATING_PROXY_PAGE_RETRY_TIMES = 10
+if not args.no_proxy:
+    ROTATING_PROXY_LIST_PATH = None
+    ROTATING_PROXY_PAGE_RETRY_TIMES = 10
+    
+    if args.proxy_list_path:
+        ROTATING_PROXY_LIST_PATH = args.proxy_list_path
+    else:
+        ROTATING_PROXY_LIST_PATH = os.path.join(
+            SUPPORT_ROOT,
+            'proxies.txt'
+        )
