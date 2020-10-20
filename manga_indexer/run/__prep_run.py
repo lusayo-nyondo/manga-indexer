@@ -4,9 +4,8 @@ from pathlib import Path
 from manga_indexer.settings import DATA_ROOT
 
 def prep_filesystem(args, site):
-    process_instance = '{instance_prefix}{timestamp}'.format(
-        instance_prefix=site['process_instance_prefix'],
-        timestamp=datetime.datetime.utcnow().timestamp()
+    process_instance = str(
+        datetime.datetime.utcnow().timestamp()
     )
 
     site_dir = os.path.join(
