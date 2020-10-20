@@ -26,7 +26,7 @@ class ManganeloMangaParser(BaseMangaParser):
             'div.container.container-main '
             'div.container-main-left '
             'div.panel-story-info div.story-info-right h1::text'
-        ).get()
+        ).get().strip()
         
         return title
     
@@ -37,7 +37,7 @@ class ManganeloMangaParser(BaseMangaParser):
             '/table/tbody/tr/'
             'td[contains(text(),\'Genres\')]'
             '/../td[2]/a/text()'
-        ).get()
+        ).get().strip()
 
         return tags
 
@@ -83,7 +83,7 @@ class ManganeloMangaParser(BaseMangaParser):
             '/table/tbody/tr/'
             'td[contains(text(),\'Status\')]'
             '/../td[2]/text()'
-        ).get()
+        ).get().strip()
 
         return status
 

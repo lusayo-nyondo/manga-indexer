@@ -29,53 +29,65 @@ class MangadexMangaParser(BaseMangaParser):
             '#content.container div.card.mb-3 '
             'h6.card-header.d-flex.align-items-center.py-2 '
             'span.mx-1::text'
-        ).get()
+        ).get().strip()
 
         return title
     
     def _get_status(self) -> str:
-        status = self._document.xpath(
-            '/html/body/div[4]/div[2]'
-            '/div/div/div[2]/div[10]/div[2]/text()'
-        ).get()
+        status = ''
+
+        try:
+            status = self._document.xpath(
+                '/html/body//div[contains(@class, \'edit\')]'
+                '//div[contains(text(), \'Pub. status:\')]'
+                '/../div[2]/text()'
+            ).get().strip()
+        except AttributeError:
+            pass
 
         return status
 
     def _get_description(self) -> str:
-        description = self._document.css(
-            '#content.container div.card.mb-3 '
-            'div.card-body.p-0 div.row.edit '
-            'div.col-xl-9.col-lg-8.col-md-7 '
-            'div.row.m-0.py-1.px-0.border-top:nth-child(12) '
-            'div.col-lg-9.col-xl-10'
-        ).get()
+        description = ''
+
+        try:
+            description = self._document.xpath(
+                '/html/body//div[contains(@class, \'edit\')]'
+                '//div[contains(text(), \'Description:\')]'
+                '/../div[2]/text()'
+            ).get().strip()
+        except AttributeError:
+            pass
 
         return description
 
     def _get_tags(self) -> str:
-        tags = self._document.css(
-            '#content.container div.card.mb-3 div.card-body.p-0 '
-            'div.row.edit div.col-xl-9.col-lg-8.col-md-7 '
-            'div.row.m-0.py-1.px-0.border-top div.col-lg-9.col-xl-10 '
-            '.badge::text'
+        tags = self._document.xpath(
+            '/html/body//div[contains(@class, \'edit\')]'
+            '//div[contains(text(), \'Demographic:\') '
+            'or contains(text(), \'Genre:\') '
+            'or contains(text(), \'Theme:\') '
+            'or contains(text(), \'Format:\')]'
+            '/../div[2]//a/text()'
         ).getall()
 
         return tags
 
     def _get_alternate_names(self) -> str:
         alternate_names = self._document.xpath(
-            '/html/body/div[4]/div[2]'
-            '/div/div/div[2]/div[2]'
-            '/div[2]/ul/li/text()'
+            '/html/body//div[contains(@class, \'edit\')]'
+            '//div[contains(text(), \'Alt name\')]'
+            '/../div[2]//li/text()'
         ).getall()
 
         return alternate_names
 
     def _get_authors(self) -> str:
         authors = self._document.xpath(
-            '/html/body/div[4]/div[2]/div'
-            '/div/div[2]/div[(position() >= 2) and (position() <= 4)]'
-            '/div[2]/a/text()'
+            '/html/body//div[contains(@class, \'edit\')]'
+            '//div[contains(text(), \'Author:\') '
+            'or contains(text(), \'Artist:\')]'
+            '/../div[2]/a/text()'
         ).getall()
 
         return authors
