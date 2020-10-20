@@ -14,11 +14,22 @@ class BaseMangaParser:
         Build a MangaItem object that will be serialized to represent the manga.
         """
         title = self._get_title()
+        description = self._get_description()
+        alternate_names = self._get_alternate_names()
+        tags = self._get_tags()
+        status = self._get_status()
+        authors = self._get_authors()
+
         url = self._get_url()
 
         manga_item: MangaItem = MangaItem()
 
         manga_item['title'] = title
+        manga_item['description'] = description
+        manga_item['tags'] = tags
+        manga_item['alternate_names'] = alternate_names
+        manga_item['authors'] = authors
+        manga_item['status'] =  status
         manga_item['url'] = url
         
         return manga_item
@@ -26,6 +37,21 @@ class BaseMangaParser:
     def _get_title(self) -> str:
         return ''
 
+    def _get_status(self) -> str:
+        return 'Unknown'
+    
+    def _get_tags(self) -> list:
+        return list()
+
+    def _get_alternate_names(self) -> list:
+        return list()
+
+    def _get_authors(self) -> list:
+        return list()
+
+    def _get_description(self) -> list:
+        return list()
+    
     def _get_url(self) -> str:
         return self._document.request.url
 
