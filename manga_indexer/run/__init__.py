@@ -9,7 +9,7 @@ from manga_indexer.settings import (
 )
 
 from .__prep_run import prep_filesystem
-from .__site_args import sites
+from manga_indexer.indexer.parsers.sites.__sites import sites
 
 def start_indexer(args):
     site = sites[args.site]

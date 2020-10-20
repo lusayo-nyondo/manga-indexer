@@ -26,12 +26,3 @@ sites.setdefault(
         'sitename': 'mangadex.org'
     }
 )
-
-sites.setdefault(
-    'manganelo.com',
-    {
-        'spider_name': 'ManganeloMangaList',
-        'process_instance_prefix': 'manganelo_spider_run',
-        'sitename': 'manganelo.com'
-    }
-)
