@@ -37,7 +37,7 @@ class ManganeloMangaParser(BaseMangaParser):
             '/table/tbody/tr/'
             'td[contains(text(),\'Genres\')]'
             '/../td[2]/a/text()'
-        ).get().strip()
+        ).getall()
 
         return tags
 
