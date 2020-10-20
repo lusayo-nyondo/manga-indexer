@@ -9,3 +9,9 @@ from .mangadex import (
     MangadexMangaParser,
     MangadexMangaPageParser
 )
+
+from .manganelo import (
+    ManganeloMangaPager,
+    ManganeloMangaParser,
+    ManganeloMangaPageParser
+)

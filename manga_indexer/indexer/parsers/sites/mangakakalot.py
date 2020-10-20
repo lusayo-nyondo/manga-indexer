@@ -29,9 +29,11 @@ class MangakakalotMangaParser(BaseMangaParser):
         return tags
 
     def _get_description(self) -> str:
-        description =  self._document.css(
-            '//*[@id="noidungm"]'
-        ).get().strip()
+        description =  ''.join(
+                self._document.xpath(
+                '//*[@id="noidungm"]/text()'
+            ).getall()
+        ).strip()
 
         return description
 
@@ -41,7 +43,7 @@ class MangakakalotMangaParser(BaseMangaParser):
                 'html body div.container '
                 'div.main-wrapper div.leftCol '
                 'div.manga-info-top ul.manga-info-text '
-                'li h2.story-alternative'
+                'li h2.story-alternative::text'
             ).get().split(',')
 
             return alternate_names
@@ -60,11 +62,11 @@ class MangakakalotMangaParser(BaseMangaParser):
 
     def _get_status(self) -> str:
         status = self._document.xpath(
-            '/html/body/div[1]/div[2]/div[1]/div[3]/ul/li[3]'
+            '/html/body/div[1]/div[2]/div[1]/div[3]/ul/li[3]/text()'
         ).get().split(':')[-1]
 
         return status
-        
+
     def _get_url(self) -> str:
         return self._document.request.url
 
