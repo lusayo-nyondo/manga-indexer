@@ -8,7 +8,13 @@ class MangaItem(scrapy.Item):
     authors = scrapy.Field()
     status = scrapy.Field()
     description = scrapy.Field()
+    chapters = scrapy.Field()
 
     def __str__(self):
         return self['title']
 
+class ChapterItem(scrapy.Item):
+    idx = scrapy.Field()
+    url = scrapy.Field()
+    name = scrapy.Field()
+    

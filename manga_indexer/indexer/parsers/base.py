@@ -22,6 +22,8 @@ class BaseMangaParser:
 
         url = self._get_url()
 
+        chapters = self._get_chapters()
+
         manga_item: MangaItem = MangaItem()
 
         manga_item['title'] = title
@@ -31,6 +33,7 @@ class BaseMangaParser:
         manga_item['authors'] = authors
         manga_item['status'] =  status
         manga_item['url'] = url
+        manga_item['chapters'] = chapters
         
         return manga_item
 
@@ -55,6 +58,9 @@ class BaseMangaParser:
     def _get_url(self) -> str:
         return self._document.request.url
 
+    def _get_chapters(self) -> str:
+        return list()
+    
 class BaseMangaPageParser:
     def __init__(self, response):
         assert isinstance(response, Response)
