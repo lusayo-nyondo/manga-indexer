@@ -1,5 +1,6 @@
 from scrapy.http import Request
 
+from manga_indexer.indexer.items import ChapterItem
 from manga_indexer.indexer.parsers import (
     BaseMangaParser,
     BaseMangaPageParser,
@@ -91,10 +92,41 @@ class MangadexMangaParser(BaseMangaParser):
         ).getall()
 
         return authors
-    
+
     def _get_url(self) -> str:
         return self._document.request.url
 
+    def _get_chapters(self) -> str:
+        chapters = list()
+
+        xpath_base = (
+            '/html/body//div[contains'
+            '(@class, \'chapter-row\')]/div[2]/a'
+        )
+
+        chapters_text = self._document.xpath('{}/text()'.format(
+            xpath_base
+        )).get()
+
+        chapters_urls = self._document.xpath('{}/href()'.format(
+            xpath_base
+        )).get()
+
+        for idx in range(
+            len(
+                chapters_urls
+            )
+        ):
+            chapter = ChapterItem(
+                idx=idx,
+                name=chapters_text[idx],
+                url=chapters_urls[idx]
+            )
+
+            chapters.append(chapter)
+
+        return chapters
+    
 class MangadexMangaPager(BaseMangaPager):
     def _get_page_list(self):
         if self._page_list is None:
