@@ -1,6 +1,9 @@
 from scrapy.http import Request
 
+from lxml import etree as ET
+
 from manga_indexer.indexer.items import ChapterItem
+
 from manga_indexer.indexer.parsers import (
     BaseMangaParser,
     BaseMangaPageParser,
@@ -96,37 +99,38 @@ class MangadexMangaParser(BaseMangaParser):
     def _get_url(self) -> str:
         return self._document.request.url
 
-    def _get_chapters(self) -> str:
+    def _get_chapters(self) -> list:
         chapters = list()
 
-        xpath_base = (
-            '/html/body//div[contains'
-            '(@class, \'chapter-row\')]/div[2]/a'
-        )
+        chapters_nodes = self._document.xpath(
+            '/html/body//div[contains(@class, \'chapter-row\')]'
+            '//span[contains(@class, \'flag-gb\')]/../../div[2]/a'
+        ).getall()
 
-        chapters_text = self._document.xpath('{}/text()'.format(
-            xpath_base
-        )).get()
+        chapters_nodes = chapters_nodes[::-1]
 
-        chapters_urls = self._document.xpath('{}/href()'.format(
-            xpath_base
-        )).get()
+        n = len(chapters_nodes)
 
-        for idx in range(
-            len(
-                chapters_urls
+        for idx in range(n):
+            node = ET.fromstring(chapters_nodes[idx])
+
+            url = 'https://mangadex.org{}'.format(
+                node.attrib['href']
             )
-        ):
+            
+            name = node.text
+
             chapter = ChapterItem(
                 idx=idx,
-                name=chapters_text[idx],
-                url=chapters_urls[idx]
+                name=name,
+                url=url
             )
 
             chapters.append(chapter)
 
         return chapters
-    
+
+
 class MangadexMangaPager(BaseMangaPager):
     def _get_page_list(self):
         if self._page_list is None:

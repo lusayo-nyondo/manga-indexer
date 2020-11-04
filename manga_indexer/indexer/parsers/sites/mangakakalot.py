@@ -1,5 +1,9 @@
 from scrapy.http import Request
 
+from lxml import etree as ET
+
+from manga_indexer.indexer.items import ChapterItem
+
 from manga_indexer.indexer.parsers import (
     BaseMangaParser,
     BaseMangaPageParser,
@@ -69,6 +73,34 @@ class MangakakalotMangaParser(BaseMangaParser):
 
     def _get_url(self) -> str:
         return self._document.request.url
+
+    def _get_chapters(self) -> list:
+        chapters = list()
+
+        chapters_nodes = self._document.xpath(
+            '/html//div[contains(@class, \'chapter-list\')]//span/a'
+        ).getall()
+
+        chapters_nodes = chapters_nodes[::-1]
+
+        n = len(chapters_nodes)
+
+        for idx in range(n):
+            node = ET.fromstring(chapters_nodes[idx])
+
+            url = node.attrib['href']
+            name = node.text
+
+            chapter = ChapterItem(
+                idx=idx,
+                name=name,
+                url=url
+            )
+
+            chapters.append(chapter)
+
+        return chapters
+
 
 class MangakakalotMangaPager(BaseMangaPager):
     def _get_page_list(self):

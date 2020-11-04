@@ -18,3 +18,5 @@ class ChapterItem(scrapy.Item):
     url = scrapy.Field()
     name = scrapy.Field()
     
+    def __str__(self):
+        return self['url']
