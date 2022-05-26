@@ -30,7 +30,7 @@ scrapy-rotating-proxies==0.6.2
 service-identity==18.1.0
 six==1.15.0
 toml==0.10.1
-Twisted==20.3.0
+Twisted==22.4.0
 typing==3.7.4.3
 w3lib==1.22.0
 wrapt==1.12.1
